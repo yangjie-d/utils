@@ -1,10 +1,10 @@
-import os
 import glob
 import xml.etree.ElementTree as ET
 
-xml_file=r'./隧道火焰烟雾_王健博1114/Annotations'
+xml_file=r'./xml'
 
-l=["smog", "fire"]
+
+l=['fire', 'smog']
 
 def convert(box,dw,dh):
     x=(box[0]+box[2])/2.0
@@ -20,8 +20,10 @@ def convert(box,dw,dh):
     return x,y,w,h
 
 def f(name_id):
-    xml_o=open(r'隧道火焰烟雾_王健博1114/Annotations/%s.xml'%name_id)
-    txt_o=open(r'labels/%s.txt'%name_id,'w')
+    xml_o=open(r"./xml/%s.xml"%name_id)
+    txt_o=open(r'./labels/%s.txt'%name_id,'w')
+    #xml_o=open(r'E:\桌面\资料\cv4\数据集\voc数据集\Annotations\%s.xml'%name_id)
+    #txt_o=open(r'E:\桌面\资料\cv4\数据集\voc数据集\labels1\%s.txt'%name_id,'w')
 
     pares=ET.parse(xml_o)
     root=pares.getroot()
@@ -46,7 +48,7 @@ def f(name_id):
     txt_o.close()
 
 name=glob.glob(os.path.join(xml_file,"*.xml"))
-for i in name :
+for i in name:
+    print(i)
     name_id=os.path.basename(i)[:-4]
     f(name_id)
-
